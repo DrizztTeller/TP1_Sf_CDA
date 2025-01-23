@@ -40,7 +40,7 @@ class Post
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?User $author = null;
 
     #[ORM\Column(length: 255, nullable: false)]
     private ?string $ref = null;
@@ -98,14 +98,14 @@ class Post
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getAuthor(): ?User
     {
-        return $this->user;
+        return $this->author;
     }
 
-    public function setUser(?User $user): static
+    public function setAuthor(?User $author): static
     {
-        $this->user = $user;
+        $this->author = $author;
 
         return $this;
     }

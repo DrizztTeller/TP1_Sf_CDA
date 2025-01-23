@@ -31,7 +31,7 @@ class PostController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $post->setUser($user);
+            $post->setAuthor($user);
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -59,7 +59,7 @@ class PostController extends AbstractController
         // $userAdmin = $this->isGranted('ROLE_ADMIN');
 
         if (
-            $post->getUser() === $user
+            $post->getAuthor() === $user
             // || $userAdmin
         ) {
             $form = $this->createForm(PostType::class, $post);
@@ -90,7 +90,7 @@ class PostController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($post->getUser() === $user) {
+        if ($post->getAuthor() === $user) {
             if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($post);
                 $entityManager->flush();
