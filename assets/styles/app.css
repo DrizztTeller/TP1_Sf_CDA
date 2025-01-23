@@ -102,3 +102,7 @@ li.page-item.active .page-link{
       }
     }
   }
+
+  .btn-group {
+    gap: 1rem;
+  }
