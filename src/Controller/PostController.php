@@ -66,19 +66,19 @@ class PostController extends AbstractController
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
-        // $userAdmin = $this->isGranted('ROLE_ADMIN');
+        $userAdmin = $this->isGranted('ROLE_ADMIN');
 
         if (
             $post->getAuthor() === $user
-            // || $userAdmin
+            || $userAdmin
         ) {
             $form = $this->createForm(PostType::class, $post);
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                // if ($userAdmin) {
-                //     $post->setIsPublished(true);
-                // }
+                if ($userAdmin) {
+                    $post->setIsPublished(true);
+                }
                 $entityManager->persist($post);
                 $entityManager->flush();
                 $this->addFlash('success', 'Your post has been successfully edited !');
@@ -100,7 +100,7 @@ class PostController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($post->getAuthor() === $user) {
+        if ($post->getAuthor() === $user || $userAdmin = $this->isGranted('ROLE_ADMIN')) {
             if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($post);
                 $entityManager->flush();
