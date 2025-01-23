@@ -49,9 +49,10 @@ class PostController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $post->setAuthor($user);
+            $post->setRef(uniqid());
             $entityManager->persist($post);
             $entityManager->flush();
-
+            $this->addFlash('success','Post successfully created');
             return $this->redirectToRoute('app_post_index', [], Response::HTTP_SEE_OTHER);
         }
 
