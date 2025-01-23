@@ -10,6 +10,9 @@ body {
     font-family: "Inter", sans-serif;
     font-weight: 300;
 }
+a {
+  text-decoration: none !important;
+}
 
 h1, h2, h3,
 h4, h5, h6 {
@@ -25,3 +28,77 @@ h4, h5, h6 {
     background-color: var(--tertiary) !important;
     color: var(--primary) !important;
 }
+
+.h-1 { height: 1rem; }
+.h-2 { height: 1.5rem; }
+.h-3 { height: 1.95rem; }
+.h-4 { height: 2.25rem; }
+.h-5 { height: 2.85rem; }
+.h-6 { height: 3rem; }
+
+.w-1 { width: 1rem; }
+.w-2 { width: 1.5rem; }
+.w-3 { width: 1.95rem; }
+.w-4 { width: 2.25rem; }
+.w-5 { width: 2.85rem; }
+.w-6 { width: 3rem; }
+
+ul.pagination {
+    margin: auto;
+    width: fit-content;
+    gap: .75rem;
+    margin-top: 1rem;
+}
+
+li.page-item.active .page-link{
+    background-color: darkblue;
+    color: white;
+  }
+  
+  li a.page-link {
+    &:hover {
+      background-color: green;
+      color: white;
+    }
+  }
+
+  div.container {
+    width: 100%;
+    max-width: unset;
+    padding: 0 3rem;
+  }
+
+  .btn-normal {
+    padding: 0.5rem 1rem;
+    background-color: silver;
+    color: black;
+    border-radius: 5px;
+    text-decoration: none;
+    &:hover {
+      background-color: gold;
+      text-decoration: none;
+    }
+  }
+
+  #header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: #ece3d3;
+    color: blue;
+
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+      ul {
+        display: flex;
+        align-self: center;
+        gap: 2rem;
+        list-style: none;
+        margin: unset;
+      }
+    }
+  }
