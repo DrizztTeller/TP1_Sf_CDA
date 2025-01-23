@@ -21,8 +21,8 @@
 
 <a href="{{ path('app_post_index') }}">back to list</a>
 {% if app.user != null %}
-    {% if app.user == item.author or 'ROLE_ADMIN' in app.user.roles %}
-<a href="{{ path('app_post_edit', { ref: item.ref }) }}" class="btn-normal">
+    {% if app.user == post.author or 'ROLE_ADMIN' in app.user.roles %}
+<a href="{{ path('app_post_edit', { ref: post.ref }) }}" class="btn-normal">
   {{ ux_icon("mdi:pencil", { class: "h-1 w-1" }) }}
   {{ "Edit" | trans }}
 </a>

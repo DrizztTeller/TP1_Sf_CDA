@@ -106,3 +106,20 @@ li.page-item.active .page-link{
   .btn-group {
     gap: 1rem;
   }
+
+  .btn-del {
+    margin-top: 1rem;
+    padding: 0.5rem 1rem !important;
+    background-color: red !important;
+    color: whitesmoke !important;
+  }
+  .btn-save {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem !important;
+    background-color: darkgreen !important;
+    color: whitesmoke !important;
+  }
+
+  #main div.form-fieldset.field-form_fieldset fieldset div.form-fieldset-body div.row div.field-group.field-boolean.has-switch {
+    flex-direction: row !important;
+  }

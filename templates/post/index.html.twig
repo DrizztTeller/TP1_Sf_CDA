@@ -44,12 +44,12 @@ block description %}{{ description }}{% endblock %} {% block body %}
     </div>
   </div>
   {% endfor %}
+  <a href="{{ path('app_post_new') }}">{{ "Create new" | trans }}</a>
 </div>
 
 <div class="navigation my-6 w-100">
   {{ knp_pagination_render(posts) }}
 </div>
 
-<a href="{{ path('app_post_new') }}">{{ "Create new" | trans }}</a>
 
 {% endblock %}
