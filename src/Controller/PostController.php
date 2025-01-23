@@ -91,7 +91,7 @@ class PostController extends AbstractController
             ]);
         } else {
             $this->addFlash('warning', 'You are not allowed to edit this element !!!');
-            return $this->redirectToRoute('app_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
     }
 
