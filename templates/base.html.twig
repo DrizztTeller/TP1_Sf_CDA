@@ -45,10 +45,10 @@
       <nav>
         <ul>
           <li><a href={{path('app_post_index')}}>Posts</a></li>
-          <li><a href={{path('app_post_new')}}>New</a></li>
           {% if app.user == null %}
-            <li><a href={{path('app_login')}}>Login</a></li>
+          <li><a href={{path('app_login')}}>Login</a></li>
           {% else %}
+          <li><a href={{path('app_post_new')}}>New</a></li>
             <li><a href={{path('app_logout')}}>Logout</a></li>
           {% endif %}
         </ul>
