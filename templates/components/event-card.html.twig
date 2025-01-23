@@ -4,7 +4,7 @@
 	<p>
 		Speakers of this event : <br>
 		{% for speaker in item.speakers %}
-			<img src="/uploads/speakers/{{ speaker.image }}" width="32" class="shadow-sm rounded-pill"> 
+			<img src={{ speaker.image }} width="32" class="shadow-sm rounded-pill"> 
 			{{ speaker.fullName }}
 		{% endfor %}
 	</p>

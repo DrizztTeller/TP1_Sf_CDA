@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %} {% block title %}{{ title }}{% endblock %} {%
+block description %}{{ description }}{% endblock %} {% block body %}
+
+<div class="my-4">
+  <h1 class="fs-1 text-bold">Toutes les posts partagées</h1>
+</div>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+  {% for item in posts %}
+  <div class="col">
+    <div class="card shadow-sm">
+      <img
+        src="{{ item.image }}"
+        alt="{{ item.title }}"
+        class="card-img-top img-fluid"
+        height="225"
+        width="100%"
+      />
+      <div class="card-body">
+        <p class="card-text">
+          {{ item.content ? item.content|slice(0, 30) : ''}}...
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <a
+              href="{{ path('app_post_show', { ref: item.ref }) }}"
+              class="btn-normal"
+              >{{ "Read" | trans }}</a
+            >
+            {% if app.user != null %} {% if app.user == item.author or
+            'ROLE_ADMIN' in app.user.roles %}
+            <a
+              href="{{ path('app_post_edit', { ref: item.ref }) }}"
+              class="btn-normal"
+            >
+              {{ ux_icon("mdi:pencil", { class: "h-1 w-1" }) }}
+              {{ "Edit" | trans }}
+            </a>
+            {% endif %} {% endif %}
+          </div>
+          <small class="text-body-secondary">{{ item.author.nickname }}</small>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="navigation my-6 w-100">
+  {{ knp_pagination_render(posts) }}
+</div>
+
+<a href="{{ path('app_post_new') }}">{{ "Create new" | trans }}</a>
+
+{% endblock %}
