@@ -88,7 +88,7 @@ class AppFixtures extends Fixture
 
 
         // Ajouts des users
-        for ($i = 0; $i < 300; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $user = new User();
             $user
                 ->setNickname($faker->userName . '_' . uniqid())
@@ -103,7 +103,7 @@ class AppFixtures extends Fixture
 
 
         $userArray = [];
-        for ($i = 0; $i < 300; $i++) {
+        for ($i = 0; $i < 3; $i++) {
             $userArray[] = $this->getReference('user_' . $i, User::class);
         }
 
