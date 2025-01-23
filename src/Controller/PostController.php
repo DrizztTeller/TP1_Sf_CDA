@@ -75,6 +75,11 @@ class PostController extends AbstractController
         $user = $this->getUser();
         $userAdmin = $this->isGranted('ROLE_ADMIN');
 
+        if (!$user instanceof User) {
+            $this->addFlash('error','You must be connected to edit a post !');
+            return $this->redirectToRoute('app_login');
+        }   
+
         if (
             $post->getAuthor() === $user
             || $userAdmin
