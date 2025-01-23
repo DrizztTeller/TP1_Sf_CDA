@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -13,6 +16,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['nickname'], message: 'There is already an account with this nickname')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -21,6 +25,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Email(
+        message: 'The email {{ value }} is not a valid email.',
+    )]
+    #[NotBlank]
+    #[Regex(pattern: '/^[A-Za-z0-9_]+(?:\.[A-Za-z0-9_]+)*@[A-Za-z]+\.[A-Za-z]{2,}$/', message: 'The email can only contains letters, numbers, underscores, dots before the @, only One @, then only letters, then only One dot and then at least two letters.')]
     private ?string $email = null;
 
     /**
@@ -35,7 +44,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    #[ORM\Column(length: 80, nullable: true)]
+    #[ORM\Column(length: 80, unique: true, nullable: true)]
+    #[NotBlank]
+    #[Regex(
+        pattern: '/^[a-zA-Z0-9_\s\-éèêëàâäîïôöùûüçñÑ&µ@$£€*%!?,;:\'".^°()#+\/]{2,80}$/',
+        message: 'This field can only contain letters, numbers, underscores, hyphens and a few symbols : &, µ, @, $, £, €, *, %, !, ?, ;, :, \', ", ^, °, (, ), +, /, . and #'
+    )]
     private ?string $nickname = null;
 
     #[ORM\OneToMany(targetEntity: Post::class, mappedBy: 'user')]

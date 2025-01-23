@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PostRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PostRepository;
+use Symfony\Component\Validator\Constraints\Type;
+use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -14,17 +16,26 @@ class Post
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 80, nullable: false)]
+    #[Regex(
+        pattern: '/^[a-zA-Z0-9_\s\-éèêëàâäîïôöùûüçñÑ&µ@$£€*%!?,;:\'".^°()#+\/]{2,80}$/',
+        message: 'This field can only contain letters, numbers, underscores, hyphens and a few symbols : &, µ, @, $, £, €, *, %, !, ?, ;, :, \', ", ^, °, (, ), +, /, . and #'
+    )]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: false)]
+    #[Regex(
+        pattern: '/^[a-zA-Z0-9_\s\-éèêëàâäîïôöùûüçñÑ&µ@$£€*%!?,;:\'".^°()#+\/]{2,}$/',
+        message: 'This field can only contain letters, numbers, underscores, hyphens and a few symbols : &, µ, @, $, £, €, *, %, !, ?, ;, :, \', ", ^, °, (, ), +, /, . and #'
+    )]
     private ?string $content = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: false)]
     private ?string $image = null;
 
-    #[ORM\Column]
-    private ?bool $isPublished = null;
+    #[ORM\Column(type: 'boolean', nullable: false, options: ["default" => false])]
+    #[Type('bool')]
+    private bool $isPublished = false;
 
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
