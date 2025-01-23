@@ -41,7 +41,8 @@ class AppFixtures extends Fixture
                 ->setJob($faker->jobTitle)
                 ->setCompany($faker->company)
                 ->setExperience($faker->numberBetween(1, 20))
-                ->setImage($faker->randomElement($speakerImages))
+                // ->setImage($faker->randomElement($speakerImages))
+                ->setImage('https://avatar.iran.liara.run/public/' . $i)
             ;
             array_push($speakerArray, $speaker);
             $manager->persist($speaker);
