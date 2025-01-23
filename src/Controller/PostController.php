@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\User;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,6 +37,12 @@ class PostController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            $this->addFlash('error','You must be connected to create a post !');
+            return $this->redirectToRoute('app_home');
+        }
+
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -100,7 +107,7 @@ class PostController extends AbstractController
     {
         $user = $this->getUser();
 
-        if ($post->getAuthor() === $user || $userAdmin = $this->isGranted('ROLE_ADMIN')) {
+        if ($post->getAuthor() === $user || $this->isGranted('ROLE_ADMIN')) {
             if ($this->isCsrfTokenValid('delete' . $post->getId(), $request->request->get('_token'))) {
                 $entityManager->remove($post);
                 $entityManager->flush();
