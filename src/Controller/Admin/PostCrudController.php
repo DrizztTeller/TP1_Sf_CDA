@@ -6,13 +6,11 @@ use App\Entity\Post;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
-use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 
 class PostCrudController extends AbstractCrudController
 {
@@ -47,6 +45,15 @@ class PostCrudController extends AbstractCrudController
             TextField::new('content')
                 ->setLabel('🔥 Content')
                 ->setHelp('What this post is about ?'),
+            ImageField::new('image')
+                ->setLabel('📷 Image')
+                ->setHelp('Choose an image for the post')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
+                ->setUploadDir('public/uploads/speakers')
+                ->setBasePath('uploads/speakers'),
+            BooleanField::new('isPublished')
+                ->setLabel('📮 Published')
+                ->setHelp('Should we publish this post ?'),
         ];
     }
 } // Do not write anything after this line
