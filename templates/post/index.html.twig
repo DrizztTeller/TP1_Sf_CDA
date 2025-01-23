@@ -24,14 +24,14 @@ block description %}{{ description }}{% endblock %} {% block body %}
           <div class="btn-group">
             <a
               href="{{ path('app_post_show', { ref: item.ref }) }}"
-              class="btn-normal"
+              class="btn btn-primary"
               >{{ "Read" | trans }}</a
             >
             {% if app.user != null %} {% if app.user == item.author or
             'ROLE_ADMIN' in app.user.roles %}
             <a
               href="{{ path('app_post_edit', { ref: item.ref }) }}"
-              class="btn-normal"
+              class="btn btn-secondary"
             >
               {{ ux_icon("mdi:pencil", { class: "h-1 w-1" }) }}
               {{ "Edit" | trans }}
