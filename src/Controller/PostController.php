@@ -40,7 +40,7 @@ class PostController extends AbstractController
 
         if (!$user instanceof User) {
             $this->addFlash('error','You must be connected to create a post !');
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_login');
         }
 
         $post = new Post();
