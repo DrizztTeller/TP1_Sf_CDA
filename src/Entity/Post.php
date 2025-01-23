@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints\Type;
 use Symfony\Component\Validator\Constraints\Regex;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_REF', fields: ['ref'])]
 class Post
 {
     #[ORM\Id]
@@ -40,6 +41,9 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $ref = null;
 
     public function getId(): ?int
     {
@@ -102,6 +106,18 @@ class Post
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getRef(): ?string
+    {
+        return $this->ref;
+    }
+
+    public function setRef(string $ref): static
+    {
+        $this->ref = $ref;
 
         return $this;
     }
