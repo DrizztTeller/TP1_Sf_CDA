@@ -6,19 +6,29 @@ use App\Entity\Post;
 use App\Form\PostType;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/posts', name: 'app_post_')]
 class PostController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(PostRepository $postRepository): Response
+    public function index(PostRepository $postRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $posts = $postRepository->findBy([], ['id' => 'DESC']);
+        $pagination = $paginator->paginate(
+            $posts, /* query NOT result */
+            $request->query->getInt('page', 1), /* page number */
+            18 /* limit per page */
+        );
+
         return $this->render('post/index.html.twig', [
-            'posts' => $postRepository->findAll(),
+            'posts' => $pagination,
+            'title' => 'Posts',
+            'description' => 'List of all the post ever written on this website',
         ]);
     }
 
