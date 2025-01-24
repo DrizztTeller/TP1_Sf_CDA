@@ -17,6 +17,7 @@ block description %}{{ description }}{% endblock %} {% block body %}
         width="100%"
       />
       <div class="card-body">
+        <h5>{{ item.title }}</h5>
         <p class="card-text">
           {{ item.content ? item.content|slice(0, 30) : ''}}...
         </p>
