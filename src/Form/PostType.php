@@ -6,6 +6,7 @@ use App\Entity\Post;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,10 @@ class PostType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('image')   
+            ->add('image', FileType::class, [
+                // pour dire que le champs image n'est plus co avec notre entité, c'est à nous de le traiter
+                'mapped' => false,
+            ])   
         ;
     }
 
